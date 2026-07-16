@@ -14,6 +14,7 @@ const createTodo = async (req, res) => {
     task: task,
     priority: priority,
     status: status,
+    path: req.file.path,
   });
 
   await todo.save();

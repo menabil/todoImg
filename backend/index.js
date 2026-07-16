@@ -21,26 +21,23 @@ mongoose
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "/tmp/my-uploads");
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, file.fieldname + "-" + uniqueSuffix);
+    cb(null, file.originalname + "-" + uniqueSuffix);
   },
 });
 
 const upload = multer({ storage: storage });
 
 app.use(cors());
-
 app.use(express.json());
+app.use("uploads/", express.static("uploads/"));
 
-app.post("/todo", createTodo);
-
+app.post("/todo", upload.single("image"), createTodo);
 app.get("/allTodo", allTodo);
-
 app.delete("/delete/:id", deleteTodo);
-
 app.post("/update/:id", updateTodo);
 
 app.listen(5000, () => {

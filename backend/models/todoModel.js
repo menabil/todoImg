@@ -15,6 +15,9 @@ const todoSchema = new Schema({
     enum: ["Pending", "Active", "Block"],
     default: "Pending",
   },
+  path: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("Todo", todoSchema);
