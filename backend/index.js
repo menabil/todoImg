@@ -1,5 +1,4 @@
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const {
   createTodo,
@@ -10,6 +9,7 @@ const {
 const dns = require("node:dns").setServers(["1.1.1.1"], ["8.8.8.8"]);
 const cors = require("cors");
 const multer = require("multer");
+const app = express();
 
 mongoose
   .connect(

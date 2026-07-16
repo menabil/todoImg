@@ -44,7 +44,7 @@ function App() {
   let handelTask = (e) => setTask(e.target.value);
   let handelPriority = (e) => setPriority(e.target.value);
   let handelStatus = (e) => setStatus(e.target.value);
-  
+
   let handelEdit = (item) => {
     setTask(item.task)
     setPriority(item.priority)
@@ -64,7 +64,7 @@ function App() {
     setTask("");
     setPriority("");
     setStatus("");
-    setIsUpdate(false); 
+    setIsUpdate(false);
   };
 
   return (
@@ -109,7 +109,7 @@ function App() {
             <option value="Active">Active</option>
             <option value="Block">Block</option>
           </select>
-          
+
           {isUpdate ? (
             <button
               className="bg-amber-600 hover:bg-amber-500 text-white font-medium px-5 py-3 rounded-xl transition-colors text-sm shadow-md active:scale-95 w-full md:w-auto whitespace-nowrap"
@@ -132,32 +132,30 @@ function App() {
           <ul className="bg-zinc-900/50 border border-zinc-800 p-4 md:p-6 mt-6 rounded-2xl text-white divide-y divide-zinc-800 text-left">
             {data.map((item, index) => (
               <li key={item._id || item.id || index} className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-3.5 first:pt-0 last:pb-0 gap-3">
-                
+
                 <span className="font-medium text-zinc-200 overflow-hidden max-w-full sm:max-w-[45%] break-words">
                   {item.task}
                 </span>
 
                 <div className="flex items-center gap-2 ml-auto sm:ml-0 shrink-0 W-full sm:w-auto justify-end">
                   {/* Dynamic Priority Badge */}
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
-                    item.priority === 'High' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
-                    item.priority === 'Mid' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
-                    'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
-                  }`}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${item.priority === 'High' ? 'bg-red-500/10 text-red-400 border-red-500/20' :
+                      item.priority === 'Mid' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' :
+                        'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+                    }`}>
                     {item.priority || 'Low'}
                   </span>
 
                   {/* Clean Status Design */}
-                  <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
-                    item.status === 'Active' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
-                    item.status === 'Block' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
-                    'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
-                  }`}>
+                  <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${item.status === 'Active' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                      item.status === 'Block' ? 'bg-rose-500/10 text-rose-400 border-rose-500/20' :
+                        'bg-zinc-500/10 text-zinc-400 border-zinc-500/20'
+                    }`}>
                     {item.status || 'Pending'}
                   </span>
-                  
+
                   {/* Styled Edit Button with Icon */}
-                  <button 
+                  <button
                     onClick={() => handelEdit(item)}
                     className="p-2 text-zinc-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition-colors flex items-center justify-center"
                     title="Edit Task"
