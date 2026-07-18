@@ -18,6 +18,9 @@ mongoose
   )
   .then(() => {
     console.log("DB Connected");
+  })
+  .catch((error) => {
+    console.log(error);
   });
 
 const storage = multer.diskStorage({

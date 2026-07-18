@@ -4,7 +4,7 @@ const createTodo = async (req, res) => {
   const { task, priority, status } = req.body;
 
   if (!task || !priority || !status) {
-    return res.send({
+    return res.status(400).json({
       success: false,
       message: "All field are require",
     });
@@ -17,39 +17,67 @@ const createTodo = async (req, res) => {
     path: req.file.path,
   });
 
-  await todo.save();
+  try {
+    let data = await todo.save();
 
-  res.send({
-    success: true,
-    message: "Todo Created",
-  });
+    res.status(201).json({
+      success: true,
+      message: "Todo Created",
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const allTodo = async (req, res) => {
-  let data = await Todo.find({});
-  res.send({
-    success: true,
-    message: "Todo Collected",
-    data: data,
-  });
+  try {
+    let data = await Todo.find({});
+    res.status(200).json({
+      success: true,
+      message: "Todo Collected",
+      data: data,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error,
+    });
+  }
 };
 
 const deleteTodo = async (req, res) => {
-  let { id } = req.params;
-  await Todo.findByIdAndDelete(id);
-  res.send({
-    success: true,
-    message: "Todo Deleted",
-  });
+  try {
+    let { id } = req.params;
+    let data = await Todo.findByIdAndDelete(id);
+    res.status(200).json({
+      success: true,
+      message: "Todo Deleted",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error,
+    });
+  }
 };
 
 let updateTodo = async (req, res) => {
-  const { id } = req.params;
-  let data = await Todo.findByIdAndUpdate({ _id: id }, req.body);
-  res.send({
-    success: true,
-    message: "Updated",
-  });
+  try {
+    const { id } = req.params;
+    let data = await Todo.findByIdAndUpdate({ _id: id }, req.body);
+    res.status(200).json({
+      success: true,
+      message: "Updated",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error,
+    });
+  }
 };
 
 module.exports = { createTodo, allTodo, deleteTodo, updateTodo };
